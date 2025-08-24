@@ -1,0 +1,13 @@
+{
+  "name": "company-website",
+  "version": "1.0.0",
+  "description": "Basic Eleventy company website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx eleventy --serve",
+    "build": "npx eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
