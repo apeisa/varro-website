@@ -1,6 +1,11 @@
 module.exports = function(eleventyConfig) {
-  // Add custom config here if needed
+  // Derive a pathPrefix automatically for GitHub Pages project sites.
+  // Locally and for user/organization sites, this stays "/".
+  const repo = process.env.GITHUB_REPOSITORY;
+  const pathPrefix = repo ? `/${repo.split('/')[1]}/` : "/";
+
   return {
+    pathPrefix,
     dir: {
       input: '.',
       includes: '_includes',
