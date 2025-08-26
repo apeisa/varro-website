@@ -1,8 +1,10 @@
 module.exports = function(eleventyConfig) {
-  // Derive a pathPrefix automatically for GitHub Pages project sites.
-  // Locally and for user/organization sites, this stays "/".
-  const repo = process.env.GITHUB_REPOSITORY;
-  const pathPrefix = repo ? `/${repo.split('/')[1]}/` : "/";
+  // Copy static assets (images, etc.) to the output as-is
+  eleventyConfig.addPassthroughCopy({ "assets": "assets" });
+  eleventyConfig.addWatchTarget("assets");
+
+  // Using a custom domain on GitHub Pages: keep root path prefix
+  const pathPrefix = "/";
 
   return {
     pathPrefix,
