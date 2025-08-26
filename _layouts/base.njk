@@ -77,6 +77,30 @@
             width: 22px;
             height: 22px;
         }
+        /* Home link button (top-left) */
+        .home-link {
+            position: fixed;
+            top: 14px;
+            left: 14px;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            background: var(--yellow);
+            color: var(--black);
+            border: 3px solid var(--black);
+            border-radius: 999px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        .home-link:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+        }
+        .home-link svg {
+            width: 22px;
+            height: 22px;
+        }
         .icon {
             display: none;
         }
@@ -94,6 +118,12 @@
         }
         .container--wide {
             max-width: 1400px;
+        }
+        .container--full {
+            max-width: none;
+            width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
         /* Header removed for a cleaner, hero-first layout */
         /* Typography */
@@ -126,7 +156,7 @@
         }
         /* Sections */
         .section {
-            padding: 6rem 0;
+            padding: 3rem 0;
         }
         .hero {
             padding: 8rem 0 3rem;
@@ -199,7 +229,6 @@
         .feature__img {
             display: grid;
             place-items: center;
-            aspect-ratio: 3 / 2;
             background: var(--yellow);
             color: var(--black);
             border: 3px solid var(--black);
@@ -207,6 +236,91 @@
             box-shadow: 8px 8px 0 var(--black);
             font-weight: 700;
             letter-spacing: 0.5px;
+        }
+        .feature__img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            display: block;
+        }
+        /* Gallery (horizontal scroll) */
+        .gallery {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+            padding: 0.25rem;
+        }
+        .gallery__item {
+            flex: 0 0 auto;
+            width: clamp(200px, 32vw, 320px);
+            border: 3px solid var(--black);
+            border-radius: 12px;
+            box-shadow: 6px 6px 0 var(--black);
+            background: var(--white);
+            overflow: hidden;
+            scroll-snap-align: start;
+        }
+        .gallery__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        [data-theme="dark"] .gallery__item {
+            background: var(--black);
+            border-color: var(--white);
+            box-shadow: 6px 6px 0 var(--white);
+        }
+        /* Horizontal gallery */
+        .gallery {
+            margin: 1rem 0 2rem;
+        }
+        .gallery__track {
+            display: flex;
+            gap: 4rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .gallery__track::-webkit-scrollbar {
+            height: 8px;
+        }
+        .gallery__track::-webkit-scrollbar-thumb {
+            background: var(--gray);
+            border-radius: 4px;
+        }
+        .gallery__item {
+            flex: 0 0 auto;
+            width: 260px;
+            border: 3px solid var(--black);
+            border-radius: 12px;
+            box-shadow: 8px 8px 0 var(--black);
+            background: var(--white);
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+        .gallery__img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        /* Text-only feature helper */
+        .feature--no-media .feature__media {
+            display: none;
+        }
+        @media(min-width: 720px) {
+            .feature--no-media .feature__title,
+            .feature--no-media .feature__content {
+                grid-column: 1;
+            }
+        }
+        /* Dark theme adjustments for gallery */
+        [data-theme="dark"] .gallery__item {
+            border-color: var(--white);
+            box-shadow: 8px 8px 0 var(--white);
+            background: var(--black);
         }
         @media(min-width: 720px) {
             .feature {
@@ -328,6 +442,23 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        /* Features grid (3-column responsive) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+        @media(min-width: 720px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media(min-width: 1100px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
         /* Footer */
         footer {
             background: var(--yellow);
@@ -399,18 +530,43 @@
             position: relative;
             z-index: 1;
         }
-    /* Store buttons */
-    .store-buttons {
+        /* Brand-colored text selection */
+        ::selection {
+            background: var(--yellow);
+            color: var(--black);
+        }
+        ::-moz-selection {
+            background: var(--yellow);
+            color: var(--black);
+        }
+        /* Store buttons */
+        .store-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
             align-items: center;
         }
-        .store-buttons--center { justify-content: center; }
-    /* Approved badges should not be restyled; just size the container */
-    .store-badge { display: inline-block; line-height: 0; }
-    .store-badge img { height: 44px; width: auto; display: block; }
-    .legal-notice { font-size: 0.8rem; opacity: 0.8; margin-top: 0.5rem; }
+        .store-buttons--center {
+            justify-content: center;
+        }
+        /* Approved badges should not be restyled; just size the container */
+        .store-badge {
+            display: inline-block;
+            line-height: 0;
+        }
+        .store-badge img {
+            height: 44px;
+            width: auto;
+            display: block;
+        }
+        .legal-notice {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+        .center {
+            text-align: center;
+        }
         /* Dark theme overrides */
         [data-theme="dark"] {
             /* Soften extremes for dark mode */
@@ -427,6 +583,10 @@
         }
         [data-theme="dark"] a {
             color: var(--white);
+        }
+        /* Keep the home icon black in dark mode */
+        [data-theme="dark"] .home-link {
+            color: var(--black);
         }
         [data-theme="dark"] .pill {
             background: var(--white);
@@ -492,12 +652,25 @@
     </style>
 </head>
 <body>
+    <a href="{{ '/' | url }}" class="home-link" aria-label="Home" title="Home">
+        <svg
+            viewbox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <path d="M3 11l9-8 9 8"></path>
+            <path d="M5 11v9h5v-6h4v6h5v-9"></path>
+        </svg>
+    </a>
     <button
         id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle theme">
         <!-- Show moon in light mode, sun in dark mode -->
         <svg
             class="icon icon-moon"
-            viewBox="0 0 24 24"
+            viewbox="0 0 24 24"
             aria-hidden="true"
             fill="none"
             stroke="currentColor"
@@ -508,7 +681,7 @@
         </svg>
         <svg
             class="icon icon-sun"
-            viewBox="0 0 24 24"
+            viewbox="0 0 24 24"
             aria-hidden="true"
             fill="none"
             stroke="currentColor"
@@ -562,27 +735,44 @@
                     : 'Switch to dark mode';
             }
             function userPrefSet() {
-                try { return !!localStorage.getItem('theme'); } catch(e) { return false; }
+                try {
+                    return !!localStorage.getItem('theme');
+                } catch (e) {
+                    return false;
+                }
             }
             // Sync initial state
             setTheme(getTheme());
             // Follow system preference when no user preference is stored
             var mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
             function applySystemTheme(event) {
-                if (!mq) return;
-                if (userPrefSet()) return; // Respect explicit user choice
-                var prefersDark = event && 'matches' in event ? event.matches : mq.matches;
-                document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+                if (! mq) 
+                    return;
+                
+                if (userPrefSet()) 
+                    return;
+                 // Respect explicit user choice
+                var prefersDark = event && 'matches' in event
+                    ? event.matches
+                    : mq.matches;
+                document.documentElement.setAttribute(
+                    'data-theme', prefersDark
+                    ? 'dark'
+                    : 'light');
                 // Update control state without persisting
-                btn.setAttribute('aria-pressed', prefersDark ? 'true' : 'false');
-                btn.title = prefersDark ? 'Switch to light mode' : 'Switch to dark mode';
+                btn.setAttribute(
+                    'aria-pressed', prefersDark
+                    ? 'true'
+                    : 'false');
+                btn.title = prefersDark
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode';
             }
             applySystemTheme();
             if (mq) {
                 if (typeof mq.addEventListener === 'function') {
                     mq.addEventListener('change', applySystemTheme);
-                } else if (typeof mq.addListener === 'function') {
-                    // Safari <14 fallback
+                } else if (typeof mq.addListener === 'function') { // Safari <14 fallback
                     mq.addListener(applySystemTheme);
                 }
             }
